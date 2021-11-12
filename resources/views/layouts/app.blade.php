@@ -37,10 +37,10 @@
         padding: 8px;
       }
       .sw-btn-next{
-        background-color: #33B754 !important;
+        background-color: #17A673 !important;
       }
       .loginbtn{
-          background-color:#5CB85C;
+          background-color:#17A673;
           border-radius:25px;
           padding-left:20px !important;
           padding-right:20px !important;
@@ -48,7 +48,7 @@
       }
       .reg_title{
         margin-bottom:30px !important;
-        color: #33B754 !important;
+        color: #17A673 !important;
       }
     </style>
   </head>
