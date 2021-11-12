@@ -17,3 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::post('/get-subcounties','\App\Http\Controllers\HomeController@get_subcounties');
+Route::post('/get-wards','\App\Http\Controllers\HomeController@get_wards');
+Route::post('/get-villages','\App\Http\Controllers\HomeController@get_villages');

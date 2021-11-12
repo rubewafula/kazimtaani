@@ -18,7 +18,9 @@
         </ul>
         <div>
 
-          <div style="padding: 15px;" id="step-1">
+          <!-- <form action="" method="post"> -->
+            @csrf
+            <div style="padding: 15px;" id="step-1">
             
               <div class="row">
 
@@ -119,14 +121,17 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">County</label>
-                <select name="county" required class="form-control">
+                <select onchange="get_subcounties()"  id="county" name="county" required class="form-control select2">
                     <option value="">Select County</option>
+                    @foreach($areas as $county)
+                    <option value="{{$county->county}}">{{$county->county}}</option>
+                    @endforeach
                 </select>
               </div>
 
               <div class="col-md-6">
                 <label class="form-label" for="">Sub County</label>
-                <select name="sub_county" required class="form-control">
+                <select  onchange="get_wards()" id="sub_county" name="sub_county" required class="form-control select2">
                     <option value="">Select Sub County</option>
                 </select>
               </div>
@@ -137,14 +142,14 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">Ward</label>
-                <select name="ward" required class="form-control">
+                <select  onchange="get_villages()" id="ward" name="ward" required class="form-control select2">
                     <option value="">Select Ward</option>
                 </select>
               </div>
 
               <div class="col-md-6">
                 <label class="form-label" for="">Village</label>
-                <select name="village" required class="form-control">
+                <select id="village" name="village" required class="form-control">
                     <option value="">Select Village</option>
                 </select>
               </div>
@@ -235,8 +240,86 @@
 
 
        </div>
+          <!-- </form> -->
 
 
       </div>
     @endsection
-      
+    @section('extra-js')
+    <script>
+
+    $('.select2').select2({
+      placeholder: 'Select an option'
+    });
+
+    function get_subcounties(){
+
+      var county = document.getElementById("county").value;
+        $('#sub_county').children().remove();
+        $('#sub_county').append( '<option value="">Select Sub County</option>');
+        
+        $.ajax({
+                url: '/api/get-subcounties',
+                type: 'POST',
+                data: {county:county},
+                success: function (data) { 
+                    var length = data.length;
+                    for (i = 0; i < length; i++)
+                    { 
+                        $('#sub_county').append( '<option value="'+data[i].sub_county+'">'+data[i].sub_county+'</option>' );
+                    }
+                }
+          });
+          
+
+    }
+
+    function get_wards(){
+
+        var sub_county = document.getElementById("sub_county").value;
+        console.log("sub_county => " + sub_county);
+        $('#ward').children().remove();
+        $('#ward').append( '<option value="">Select Ward</option>');
+        
+        $.ajax({
+                url: '/api/get-wards',
+                type: 'POST',
+                data: {sub_county:sub_county},
+                success: function (data) { 
+                  console.log("Wards => "+JSON.stringify(data));
+                    var length = data.length;
+                    for (i = 0; i < length; i++)
+                    { 
+                        $('#ward').append( '<option value="'+data[i].ward+'">'+data[i].ward+'</option>' );
+                    }
+                }
+          });
+         
+
+    }
+
+    function get_villages(){
+
+      var ward = document.getElementById("ward").value;
+
+      $('#village').children().remove();
+      $('#village').append( '<option value="">Select Village</option>');
+
+      $.ajax({
+              url: '/api/get-villages',
+              type: 'POST',
+              data: {ward:ward},
+              success: function (data) { 
+                  var length = data.length;
+                  for (i = 0; i < length; i++)
+                  { 
+                      $('#village').append( '<option value="'+data[i].village+'">'+data[i].village+'</option>' );
+                  }
+              }
+        });
+
+    }
+
+    </script>
+
+    @endsection
