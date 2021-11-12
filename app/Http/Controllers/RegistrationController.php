@@ -105,7 +105,7 @@ class RegistrationController extends Controller
 
     }
 
-    public  function registration_success(){
+    public  function success(){
 
 
         return view('success');
