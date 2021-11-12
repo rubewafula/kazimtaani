@@ -173,6 +173,7 @@
     </style>
   </head>
   <body oncontextmenu='return false' class='snippet-body'>
+    <script src="https://unpkg.com/smartwizard@5/dist/js/jquery.smartWizard.min.js" type="text/javascript"></script>
     <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard.min.css" rel="stylesheet" type="text/css" />
     <link href="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/smart_wizard_theme_dots.min.css" rel="stylesheet" type="text/css" />
     <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/bbbootstrap/libraries@main/jquery.smartWizard.min.js"></script>
@@ -236,10 +237,37 @@
             selected: 0,
             theme: 'dots',
             autoAdjustHeight: true,
-            transitionEffect: 'fade',
+            transitionEffect: 'slide',
             showStepURLhash: false,
           });
+
+          $('#smartwizard').on("leaveStep",function(e, anchorObject, stepNumber, stepDirection){
+            var elForm = $('#step-'+stepNumber+1);
+            if(stepDirection === "forward" && elForm){
+              // elForm.validator('validate');
+              // var elmErr = elForm.children('.has-error');
+              // if(elmErr = elmErr.length > 0){
+              //   return false;
+              // };
+            }
+            return true;
+          });
+
+
+
+          $("#smartwizard").on("showStep", function(e, anchorObject, stepNumber, stepDirection) {
+
+            if($('button.sw-btn-next').hasClass('disabled')){
+              $('.sw-btn-group-extra').show();
+            }else{
+              	
+            }
+
+	      });
+
         });
+
+        
         
       </script>
   </body>

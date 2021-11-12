@@ -7,6 +7,9 @@
        <div class="card shadow-sm">
 
 
+       <form action="/registration/save" id="registerForm" role="form" data-toggle="validator" method="post">
+        @csrf
+
        <div  style="padding:10px;" id="smartwizard">
         <ul>
           <li><a href="#step-1">Step 1<br /><small>Personal Details</small></a></li>
@@ -18,20 +21,21 @@
         </ul>
         <div>
 
-          <!-- <form action="" method="post"> -->
-            @csrf
             <div style="padding: 15px;" id="step-1">
             
               <div class="row">
 
               <div class="col-md-6">
                 <label class="form-label" for="">First Name</label>
-                <input type="text" class="form-control" name="first_name" placeholder="Enter Your First Name" required>
+                <input type="text" class="form-control" name="first_name" placeholder="Enter Your First Name">
               </div>
 
               <div class="col-md-6">
-                <label class="form-label" for="">Middle Name</label>
-                <input type="text" class="form-control" name="middle_name" placeholder="Enter Your Middle Name" required>
+                <div class="form-step-0" role="form" data-toggle="validator">
+                  <label class="form-label" for="">Middle Name</label>
+                  <input type="text" class="form-control" name="middle_name" placeholder="Enter Your Middle Name">
+                  <div class="help-block with-errors"></div>
+                </div>
               </div>
 
             </div>
@@ -39,13 +43,19 @@
             <div class="row mt-3">
 
               <div class="col-md-6">
+              <div class="form-step-0" role="form" data-toggle="validator">
                 <label class="form-label" for="">Last Name</label>
-                <input type="text" class="form-control" name="last_name" placeholder="Enter Your Last Name" required>
+                <input type="text" class="form-control" name="last_name" placeholder="Enter Your Last Name">
+                <div class="help-block with-errors"></div>
+              </div>
               </div>
               
               <div class="col-md-6">
+              <div class="form-step-0" role="form" data-toggle="validator">
                 <label class="form-label" for="">Date Of Birth</label>
-                <input type="date" class="form-control" name="dob" max="<?php echo date('Y-m-d', strtotime('18 years ago'));?>"  required>
+                <input type="date" class="form-control" name="dob" max="<?php echo date('Y-m-d', strtotime('18 years ago'));?>" >
+                <div class="help-block with-errors"></div>
+                </div>
               </div>
 
             </div>
@@ -53,20 +63,26 @@
             <div class="row mt-3">
 
               <div class="col-md-6">
+              <div class="form-step-0" role="form" data-toggle="validator">
                 <label class="form-label" for="">Gender</label>
-                <select required class="form-control">
+                <select name="gender" class="form-control">
                   <option value="">Select gender</option>
                   <option value="male">Male</option>
                   <option value="female">Female</option>
                 </select>
+                <div class="help-block with-errors"></div>
+                </div>
               </div>
               
               <div class="col-md-6">
+              <div class="form-step-0" role="form" data-toggle="validator">
                 <label class="form-label" for="">Do you have any disability</label>
-                <select required class="form-control">
+                <select name="disabled" class="form-control">
                   <option value="no">No</option>
                   <option value="yes">Yes</option>
                 </select>
+                <div class="help-block with-errors"></div>
+                </div>
               </div>
 
             </div>
@@ -74,8 +90,11 @@
             <div class="row mt-3">
 
             <div class="col-md-6">
+            <div class="form-step-0" role="form" data-toggle="validator">
               <label class="form-label" for="">Phone Number</label>
-              <input type="number" class="form-control" name="phone" placeholder="Enter Your Phone Number" required>
+              <input type="number" class="form-control" name="phone" placeholder="Enter Your Phone Number">
+              <div class="help-block with-errors"></div>
+              </div>
             </div>
 
             </div>
@@ -90,12 +109,12 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">Serial No</label>
-                <input type="number" class="form-control" name="id_serial_no" placeholder="Enter Id Serial No" required>
+                <input type="number" class="form-control" name="id_serial_no" placeholder="Enter Id Serial No">
               </div>
 
               <div class="col-md-6">
                 <label class="form-label" for="">ID No</label>
-                <input type="number" class="form-control" name="id_no" placeholder="Enter Id No" required>
+                <input type="number" class="form-control" name="id_no" placeholder="Enter Id No">
               </div>
             
             </div>
@@ -105,9 +124,7 @@
 
             <div class="col-md-6">
               <label class="form-label" for="">Ditrict of Birth</label>
-              <select name="district" required class="form-control">
-                  <option value="">Select District</option>
-              </select>
+              <input type="text" class="form-control" name="district_of_birth" placeholder="Enter District Of Birth">
             </div>
 
           </div>
@@ -121,7 +138,7 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">County</label>
-                <select onchange="get_subcounties()"  id="county" name="county" required class="form-control select2">
+                <select onchange="get_subcounties()"  id="county" name="county" class="form-control select2">
                     <option value="">Select County</option>
                     @foreach($areas as $county)
                     <option value="{{$county->county}}">{{$county->county}}</option>
@@ -131,7 +148,7 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">Sub County</label>
-                <select  onchange="get_wards()" id="sub_county" name="sub_county" required class="form-control select2">
+                <select  onchange="get_wards()" id="sub_county" name="sub_county" class="form-control select2">
                     <option value="">Select Sub County</option>
                 </select>
               </div>
@@ -142,14 +159,14 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">Ward</label>
-                <select  onchange="get_villages()" id="ward" name="ward" required class="form-control select2">
+                <select  onchange="get_villages()" id="ward" name="ward" class="form-control select2">
                     <option value="">Select Ward</option>
                 </select>
               </div>
 
               <div class="col-md-6">
                 <label class="form-label" for="">Village</label>
-                <select id="village" name="village" required class="form-control">
+                <select id="village" name="village" class="form-control">
                     <option value="">Select Village</option>
                 </select>
               </div>
@@ -160,7 +177,7 @@
 
             <div class="col-md-6">
               <label class="form-label" for="">Residence</label>
-              <input type="text" class="form-control" name="residence" placeholder="Enter Your Residence" required>
+              <input type="text" class="form-control" name="residence" placeholder="Enter Your Residence">
             </div>
 
             </div>
@@ -176,7 +193,7 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">Level of education</label>
-                <select name="education_level" required class="form-control">
+                <select name="education_level" class="form-control">
                     <option value="primary">Primary</option>
                     <option value="Secondary">Secondary</option>
                     <option value="Undergraduate">Undergraduate</option>
@@ -188,7 +205,7 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">Skill level</label>
-                <select name="skill_level" required class="form-control">
+                <select name="skill_level" class="form-control">
                     <option value="Skilled - Industrial trade">Skilled - Industrial trade</option>
                     <option value="Skilled - Service trade">Skilled - Service trade</option>
                     <option value="Semi-skilled">Semi-skilled</option>
@@ -202,7 +219,7 @@
 
             <div class="col-md-6">
                 <label class="form-label" for="">Preffered Job</label>
-                <input type="text" class="form-control" name="preffered_job" placeholder="Enter Your Preffered Job" required>
+                <input type="text" class="form-control" name="preffered_job" placeholder="Enter Your Preffered Job">
               </div>
 
             </div>
@@ -235,13 +252,23 @@
             </div>
 
           </div>
+
+          <div class="mt-3">
+
+            <button type="submit" class="btn btn-primary">
+              Submit
+            </button>
+
+          </div>
+
+
+       </form>
+
               
           </div>
 
 
        </div>
-          <!-- </form> -->
-
 
       </div>
     @endsection

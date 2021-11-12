@@ -17,6 +17,13 @@ Route::get('/','\App\Http\Controllers\HomeController@welcome');
 
 Route::get('/admin','\App\Http\Controllers\HomeController@index');
 
+Route::prefix('registration')->group(function () {
+
+    Route::post('/save','\App\Http\Controllers\RegistrationController@save_registration');
+    Route::get('/success','\App\Http\Controllers\RegistrationController@success');
+
+});
+
 
 Route::prefix('admin')->middleware(['auth'])->group(function () {
 
