@@ -21,6 +21,7 @@ Route::get('/admin','\App\Http\Controllers\HomeController@index');
 Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::get('/registrations','\App\Http\Controllers\RegistrationController@index');
+    Route::get('/target-areas','\App\Http\Controllers\TargetAreaController@index');
 
 });
 

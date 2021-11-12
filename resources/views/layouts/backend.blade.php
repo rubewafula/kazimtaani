@@ -86,11 +86,11 @@
                     <!-- <i class="fas fa-fw fa-cog"></i> -->
                     <i class="fa fa-globe" aria-hidden="true"></i>
 
-                    <span>Location Data</span>
+                    <span>Location</span>
                 </a>
                 <div id="collapseTwo_" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                          <a class="collapse-item" href="{{ url('admin/sms_in')}}"> <i class="fa fa-inbox" aria-hidden="true"></i> Locations</a>
+                          <a class="collapse-item" href="{{ url('admin/target-areas')}}"> <i class="fa fa-inbox" aria-hidden="true"></i> Target Areas</a>
                     </div>
                 </div>
             </li>
