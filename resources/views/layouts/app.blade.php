@@ -50,6 +50,12 @@
         margin-bottom:30px !important;
         color: #17A673 !important;
       }
+      .sw-theme-dots>ul.step-anchor>li.active>a {
+          color: #5bc0de;
+      }
+      .sw-theme-dots>ul.step-anchor>li.done>a {
+          color: #5cb85c;
+      }
     </style>
   </head>
   <body oncontextmenu='return false' class='snippet-body'>
