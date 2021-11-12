@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>KASNEB</title>
+    <title>KAZI MTAANI</title>
 
     <!-- Custom fonts for this template-->
     <link href="{{ URL::asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
@@ -37,13 +37,12 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="{{ url('admin')}}">
+            <a class="sidebar-brand d-flex align-items-left justify-content-left mt-1" href="{{ url('admin')}}">
                 <div class="sidebar-brand-icon rotate-n-15">
-<!--                     <i class="fas fa-laugh-wink"></i>
- -->                </div>
+                </div>
                 <div class="sidebar-brand-text mx-3">
-         <!-- <img  src="{{ asset('img/kasneb.jpg')}}" width="100px"/> -->
-         Kasneb
+                   <!-- img src="/img/kazi-mtaani.jpeg" alt="KAZI MTAANI" width="200" height="100"/> -->
+                   KAZI MTAANI
 
                 </div>
             </a>
@@ -71,18 +70,12 @@
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
                     aria-expanded="true" aria-controls="collapseTwo">
                     <i class="fa fa-table" aria-hidden="true"></i>
-                    <span>Results</span>
+                    <span>Registrations</span>
                 </a>
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ url('admin/results')}}">
-                        <i class="fa fa-eye-slash" aria-hidden="true"></i>
-
-                        Check results</a>
-                          <a class="collapse-item" href="{{ url('admin/results/upload')}}">
-                          <i class="fa fa-upload" aria-hidden="true"></i>
-                          Upload Results</a>
-
+                        <a class="collapse-item" href="{{ url('admin/registrations')}}">
+                        <i class="fa fa-eye-slash" aria-hidden="true"></i> Registered</a>
                     </div>
                 </div>
             </li>
@@ -93,53 +86,11 @@
                     <!-- <i class="fas fa-fw fa-cog"></i> -->
                     <i class="fa fa-globe" aria-hidden="true"></i>
 
-                    <span>SMS Counts</span>
+                    <span>Location Data</span>
                 </a>
                 <div id="collapseTwo_" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <a class="collapse-item" href="{{ url('admin/sms_in')}}">
-                        <i class="fa fa-inbox" aria-hidden="true"></i>
-
-                        Inbox</a>
-                          <a class="collapse-item" href="{{ url('admin/sms_out')}}">
-                          
-                          <i class="fa fa-outdent" aria-hidden="true"></i>
-Outbox</a>
-
-<a class="collapse-item" href="{{ url('admin/ussd')}}">
-                          
-<i class="fa fa-phone" aria-hidden="true"></i>
-USSD Dials</a>
-                    </div>
-                </div>
-            </li>
-
-<li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo__"
-                    aria-expanded="true" aria-controls="collapseTwo">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>SMS Campaigns</span>
-                </a>
-                <div id="collapseTwo__" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="{{ url('admin/new_message')}}">
-                          <i class="fa fa-envelope-open" aria-hidden="true"></i>
- New  SMS</a>
-                         <a class="collapse-item" href="{{ url('admin/campaigns')}}">
-                          <i class="fa fa-envelope-open" aria-hidden="true"></i>
-  Campaigns</a>
-                         <a class="collapse-item" href="{{ url('admin/sms_group')}}">
-                         <i class="fa fa-id-card" aria-hidden="true"></i>
-                         Groups</a>
-                          <a class="collapse-item" href="{{ url('admin/contacts')}}">
-                          <i class="fa fa-address-book" aria-hidden="true"></i>
- Phone Number  Database</a>
-                          <a class="collapse-item" href="{{ url('admin/contacts/upload')}}">
-                          <i class="fa fa-upload" aria-hidden="true"></i>
- Upload Contacts</a>
-                          <a class="collapse-item" href="{{ url('admin/campaigns/create')}}">
-                          <i class="fa fa-bolt" aria-hidden="true"></i>
-                          Run Campaign</a>
+                          <a class="collapse-item" href="{{ url('admin/sms_in')}}"> <i class="fa fa-inbox" aria-hidden="true"></i> Locations</a>
                     </div>
                 </div>
             </li>
@@ -149,7 +100,6 @@ USSD Dials</a>
                     <i class="fas fa-fw fa-chart-area"></i>
                     <span>Reports</span></a>
             </li>
-
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
@@ -306,7 +256,7 @@ Users</a>
             <footer class="sticky-footer bg-white">
                 <div class="container my-auto">
                     <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; KASNEB <?php echo date('Y') ?></span>
+                        <span>Copyright &copy; KAZI MTAANI <?php echo date('Y') ?></span>
                     </div>
                 </div>
             </footer>
