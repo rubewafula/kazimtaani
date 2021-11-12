@@ -37,10 +37,10 @@
         padding: 8px;
       }
       .sw-btn-next{
-        background-color: #33B754 !important;
+        background-color: #17A673 !important;
       }
       .loginbtn{
-          background-color:#5CB85C;
+          background-color:#17A673;
           border-radius:25px;
           padding-left:20px !important;
           padding-right:20px !important;
@@ -48,7 +48,13 @@
       }
       .reg_title{
         margin-bottom:30px !important;
-        color: #33B754 !important;
+        color: #17A673 !important;
+      }
+      .sw-theme-dots>ul.step-anchor>li.active>a {
+          color: #5bc0de;
+      }
+      .sw-theme-dots>ul.step-anchor>li.done>a {
+          color: #5cb85c;
       }
     </style>
   </head>
@@ -60,7 +66,7 @@
         <nav  class="navbar navbar-expand-md navbar-light bg-light shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    <img style="height:50px;" src="{{ asset('img/logo.JPEG') }}"/>
+                    <img style="height:50px;" src="{{ asset('img/logo.jpeg') }}"/>
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
