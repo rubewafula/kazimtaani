@@ -83,4 +83,91 @@ class RegistrationController extends Controller
         $wards = DB::table('target_area')->select(DB::raw('distinct ward as ward'))->whereIn('sub_county', $sub_counties)->get();
         return $wards->toArray();
     }
+
+    public function save_registration(Request $request){
+
+      $base_url = \URL::to('/');
+
+      if(DB::table('registration')->where('national_id', '=', $request->id_no)->exists()){
+
+        $url = $base_url."#step-2";
+
+        \Alert::error('ID No Taken!', 'ID No has already been registered!');
+
+        return redirect($url)->withInput();
+      }
+
+
+      if(DB::table('registration')->where('phone_number', '=', $request->phone)->exists()){
+
+        $url = $base_url."#step-1";
+
+        \Alert::error('Phone No Taken!', 'Phone No has already been registered!');
+        
+        return redirect($url)->withInput();
+      }
+
+        
+       if($request->disabled == "yes"){
+        $disabled = TRUE;
+       }else{
+        $disabled = FALSE;
+       }
+        
+        
+        $registration_data = [
+            'first_name'=>$request->first_name,
+            'other_names'=>$request->middle_name,
+            'last_name'=>$request->last_name,
+            'dob'=>$request->dob,
+            'gender'=>$request->gender,
+            'disabled'=>$disabled,
+            'phone_number'=>$request->phone,
+            'national_id'=>$request->id_no,
+            'id_serial_number'=>$request->id_serial_no,
+            'district_of_birth'=>$request->district_of_birth,
+            'county'=>$request->county,
+            'sub_county'=>$request->sub_county,
+            'ward'=>$request->ward,
+            'village'=>$request->village,
+            'residence'=>$request->residence,
+            'education'=>$request->education_level,
+            'skill_level'=>$request->skill_level,
+            'preferred_job'=>$request->preffered_job,
+            'created_at'=>now(),
+            'updated_at'=>now()
+
+        ];
+
+        DB::table('registration')->insert($registration_data);
+
+        $registration_id = DB::getPdo()->lastInsertId();
+
+        if(isset($request->alternate_payment_person)){
+
+            $alternate_data = [
+                'registration_id'=>$registration_id,
+                'names'=>$request->alternate_payment_person,
+                'id_no'=>$request->alternate_payment_person_id_no,
+                'phone_number'=>$request->alternate_payment_person_phone,
+                'created_at'=>now(),
+                'updated_at'=>now()
+    
+            ];
+
+            DB::table('alternate_payment_person')->insert($alternate_data);
+
+        }
+
+        return redirect('/registration/success');
+
+    }
+
+    public  function success(){
+
+
+        return view('success');
+
+    }
+
 }
