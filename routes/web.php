@@ -24,16 +24,19 @@ Route::prefix('registration')->group(function () {
 
 });
 
-
-Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
-
+Route::prefix('admin')->middleware(['auth'])->group(function () {
     Route::get('/registrations','\App\Http\Controllers\RegistrationController@index');
     Route::post('/registration/sub-counties','\App\Http\Controllers\RegistrationController@subCounties');
     Route::post('/registration/wards','\App\Http\Controllers\RegistrationController@wards');
     Route::get('/target-areas','\App\Http\Controllers\TargetAreaController@index');
+    Route::post('/reports', '\App\Http\Controllers\ReportController@downloadReport');
+    Route::get('/reports', '\App\Http\Controllers\ReportController@lazyReport');
+});
+
+Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
+
     Route::get('/users','\App\Http\Controllers\Admin\UsersController@index');
     Route::get('/manage-user/{id}','\App\Http\Controllers\Admin\UsersController@showManageUser');
-
     Route::post('/users/{id}','\App\Http\Controllers\Admin\UsersController@update');
     Route::patch('/users/{id}','\App\Http\Controllers\Admin\UsersController@update');
     Route::delete('/users/{id}','\App\Http\Controllers\Admin\UsersController@destroy');
