@@ -21,7 +21,19 @@ Route::get('/admin','\App\Http\Controllers\HomeController@index');
 Route::prefix('admin')->middleware(['auth'])->group(function () {
 
     Route::get('/registrations','\App\Http\Controllers\RegistrationController@index');
+    Route::post('/registration/sub-counties','\App\Http\Controllers\RegistrationController@subCounties');
+    Route::post('/registration/wards','\App\Http\Controllers\RegistrationController@wards');
     Route::get('/target-areas','\App\Http\Controllers\TargetAreaController@index');
+    Route::get('/users','\App\Http\Controllers\Admin\UsersController@index');
+    Route::get('/manage-user/{id}','\App\Http\Controllers\Admin\UsersController@showManageUser');
+
+    Route::post('/users/{id}','\App\Http\Controllers\Admin\UsersController@update');
+    Route::patch('/users/{id}','\App\Http\Controllers\Admin\UsersController@update');
+    Route::delete('/users/{id}','\App\Http\Controllers\Admin\UsersController@destroy');
+
+    Route::get('/users/{id}','\App\Http\Controllers\Admin\UsersController@show');
+    Route::get('/roles','\App\Http\Controllers\Admin\RolesController@index');
+    Route::get('/roles/create','\App\Http\Controllers\Admin\RolesController@create');
 
 });
 

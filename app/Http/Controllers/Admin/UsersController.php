@@ -5,9 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserCounty;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Activity_log;
+use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
@@ -22,10 +24,16 @@ class UsersController extends Controller
         $perPage = 15;
 
         if (!empty($keyword)) {
-            $users = User::where('name', 'LIKE', "%$keyword%")->orWhere('email', 'LIKE', "%$keyword%")
-                ->latest()->paginate($perPage);
+            $users = User::select('users.id', 'name', 'email', 
+                DB::raw('group_concat(county) as counties'))
+                ->leftJoin('user_county', 'user_county.user_id', '=', 'users.id')
+                ->where('name', 'LIKE', "%$keyword%")->orWhere('email', 'LIKE', "%$keyword%")
+                ->orderBy('users.created_at', 'desc')->groupBy('users.id')->paginate($perPage);
         } else {
-            $users = User::latest()->paginate($perPage);
+            $users = User::select('users.id', 'name', 'email', 
+                DB::raw('group_concat(county) as counties'))
+                ->leftJoin('user_county', 'user_county.user_id', '=', 'users.id')
+                ->orderBy('users.created_at', 'desc')->groupBy('users.id')->paginate($perPage);
         }
 
         return view('admin.users.index', compact('users'));
@@ -106,8 +114,8 @@ class UsersController extends Controller
             $user_roles[] = $role->name;
         }
 
-
-        return view('admin.users.edit', compact('user', 'roles', 'user_roles'));
+        return view('admin.users.edit', 
+            compact('user', 'roles', 'user_roles'));
     }
 
     /**
@@ -126,25 +134,27 @@ class UsersController extends Controller
                 'name' => 'required',
                 'email' => 'required|string|max:255|email|unique:users,email,' . $id,
                 'roles' => 'required',
+                'user-counties' => 'required',
                 'password'=>'nullable|min:5|confirmed'
             ]
         );
 
-        $data = $request->except('password');
+        $data = $request->except('password', 'user-counties');
 
        // dd($request->all());
 
-        if ($request->has('password')) {
+        if ($request->has('password') && !empty($request->password)) {
             $data['password'] = bcrypt($request->password);
         }
 
-        $user = User::findOrFail($id);
-        $user->update($data);
+        $user = User::find($id);
 
-        $user->roles()->detach();
-        foreach ($request->roles as $role) {
-            $user->assignRole($role);
+        $user_counties = $request->get('user-counties');
+        $uc = [];
+        foreach($user_counties  as $user => $user_county){
+            $uc[] =  ['user_id'=> $id, 'county'=>$user_county];
         }
+        UserCounty::insert($uc);
 
         return redirect('admin/users')->with('flash_message', 'User updated!');
     }
@@ -174,7 +184,7 @@ class UsersController extends Controller
     public  function  update_profile(Request $request,$id)
     {
 
- $this->validate(
+         $this->validate(
             $request,
             [
                 'name' => 'required',
@@ -206,7 +216,7 @@ class UsersController extends Controller
 
    }
 
-   public  function  show_manage_user($id)
+   public  function  showManageUser($id)
    {
 
     $roles = Role::select('id', 'name', 'label')->get();
@@ -219,7 +229,20 @@ class UsersController extends Controller
     foreach ($user->roles as $role) {
         $user_roles[] = $role->name;
     }
-         return  view('admin.users.manage_user',compact('user','roles','user_roles'));
+    $cts = DB::table('county')->select('county')->get();
+    $counties = [];
+    foreach($cts as $key=>$county){
+        $counties[] = $county->county;
+    }
+    $user_counties = [];
+    $urs = DB::table('user_county')->select('county')->where('user_id', $id)->get();
+
+    foreach($urs as $key=>$county){
+        $user_counties[] = $county->county;
+    }
+
+    return  view('admin.users.manage_user',
+        compact('user','roles','user_roles', 'counties', 'user_counties'));
    }
 
 

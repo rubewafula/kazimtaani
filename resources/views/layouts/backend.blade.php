@@ -20,7 +20,7 @@
     <!-- Custom styles for this template-->
     <link href="{{ URL::asset('css/sb-admin-2.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="//cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>
-    <!-- <link rel="stylesheet" href="{{ URL::asset('bower_components/bootstrap/dist/css/bootstrap.min.css')}}" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />i
     <script src="{{ URL::asset('vendor/jquery/jquery.js')}}"></script>
     <script type="text/javascript" src="{{ URL::asset('bower_components/moment/min/moment.min.js')}}"></script>
     <script type="text/javascript" src="{{ URL::asset('bower_components/bootstrap/dist/js/bootstrap.min.js')}}"></script>
@@ -307,11 +307,9 @@ Users</a>
 
     <!-- Page level plugins -->
     <script src="{{ URL::asset('vendor/chart.js/Chart.min.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-    <!-- Page level custom scripts -->
-    <!-- <script src="{{ URL::asset('js/demo/chart-area-demo.js')}}"></script>
-    <script src="{{ URL::asset('js/demo/chart-pie-demo.js')}}"></script> -->
-
+    @yield('extra-js')
 </body>
 
 </html>

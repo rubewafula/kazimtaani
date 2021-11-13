@@ -20,7 +20,7 @@
                <div  class="row">
                    <div class="col-md-6" style="border-right:solid #000 1px">
                    {!! Form::model($user, [
-                            'method' => 'PATCH',
+                            'method' => 'POST',
                             'url' => ['/admin/users', $user->id],
                             'class' => 'form-horizontal'
                         ]) !!}

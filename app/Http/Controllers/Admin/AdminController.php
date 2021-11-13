@@ -25,15 +25,6 @@ class AdminController extends Controller
 
         return view('admin.dashboard',["report"=>$report]);
 
-      // $user= Auth::user();
-      //dd($user->roles());
-    //   if($user->hasRole('Administrator'))
-    //   {
-    //   echo  'admin';
-    //   }else{
-    //    echo  'not  admin';
-
-    //   }
     }
 
     public  function activity_log()
