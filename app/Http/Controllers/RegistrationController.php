@@ -50,6 +50,28 @@ class RegistrationController extends Controller
 
     public function save_registration(Request $request){
 
+      $base_url = \URL::to('/');
+
+      if(DB::table('registration')->where('national_id', '=', $request->id_no)->exists()){
+
+        $url = $base_url."#step-2";
+
+        \Alert::error('ID No Taken!', 'ID No has already been registered!');
+
+        return redirect($url)->withInput();
+      }
+
+
+      if(DB::table('registration')->where('phone_number', '=', $request->phone)->exists()){
+
+        $url = $base_url."#step-1";
+
+        \Alert::error('Phone No Taken!', 'Phone No has already been registered!');
+        
+        return redirect($url)->withInput();
+      }
+
+        
        if($request->disabled == "yes"){
         $disabled = TRUE;
        }else{

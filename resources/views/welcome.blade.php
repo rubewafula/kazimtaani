@@ -21,19 +21,32 @@
         </ul>
         <div>
 
+        @if (session()->has('success'))
+
+        <div class="alert alert-success fade show" role="alert">
+            {{ session()->get('success') }}
+        </div>
+
+        @elseif (session()->has('error'))
+
+            <div class="alert alert-danger fade show" role="alert">
+                {{ session()->get('error') }}
+            </div>
+
+        @endif
             <div style="padding: 15px;" id="step-1">
             
               <div class="row">
 
               <div class="col-md-6">
                 <label class="form-label" for="">First Name</label>
-                <input type="text" class="form-control" name="first_name" placeholder="Enter Your First Name">
+                <input type="text" class="form-control" value="{{ old('first_name') }}" name="first_name" placeholder="Enter Your First Name">
               </div>
 
               <div class="col-md-6">
                 <div class="form-step-0" role="form" data-toggle="validator">
                   <label class="form-label" for="">Middle Name</label>
-                  <input type="text" class="form-control" name="middle_name" placeholder="Enter Your Middle Name">
+                  <input type="text" class="form-control" name="middle_name" value="{{ old('middle_name') }}" placeholder="Enter Your Middle Name">
                   <div class="help-block with-errors"></div>
                 </div>
               </div>
@@ -45,7 +58,7 @@
               <div class="col-md-6">
               <div class="form-step-0" role="form" data-toggle="validator">
                 <label class="form-label" for="">Last Name</label>
-                <input type="text" class="form-control" name="last_name" placeholder="Enter Your Last Name">
+                <input type="text" class="form-control" name="last_name" value="{{ old('last_name') }}" placeholder="Enter Your Last Name">
                 <div class="help-block with-errors"></div>
               </div>
               </div>
@@ -92,7 +105,7 @@
             <div class="col-md-6">
             <div class="form-step-0" role="form" data-toggle="validator">
               <label class="form-label" for="">Phone Number</label>
-              <input type="number" class="form-control" name="phone" placeholder="Enter Your Phone Number">
+              <input type="number" class="form-control" value="{{ old('phone') }}" name="phone" placeholder="Enter Your Phone Number">
               <div class="help-block with-errors"></div>
               </div>
             </div>
@@ -109,12 +122,12 @@
 
               <div class="col-md-6">
                 <label class="form-label" for="">Serial No</label>
-                <input type="number" class="form-control" name="id_serial_no" placeholder="Enter Id Serial No">
+                <input type="number" class="form-control" value="{{ old('id_serial_no') }}" name="id_serial_no" placeholder="Enter Id Serial No">
               </div>
 
               <div class="col-md-6">
                 <label class="form-label" for="">ID No</label>
-                <input type="number" class="form-control" name="id_no" placeholder="Enter Id No">
+                <input type="number" class="form-control" value="{{ old('id_no') }}" name="id_no" placeholder="Enter Id No">
               </div>
             
             </div>
@@ -123,8 +136,8 @@
           <div class="row mt-3">
 
             <div class="col-md-6">
-              <label class="form-label" for="">Ditrict of Birth</label>
-              <input type="text" class="form-control" name="district_of_birth" placeholder="Enter District Of Birth">
+              <label class="form-label" for="">District of Birth</label>
+              <input type="text" class="form-control" value="{{ old('district_of_birth') }}" name="district_of_birth" placeholder="Enter District Of Birth">
             </div>
 
           </div>
@@ -177,7 +190,7 @@
 
             <div class="col-md-6">
               <label class="form-label" for="">Residence</label>
-              <input type="text" class="form-control" name="residence" placeholder="Enter Your Residence">
+              <input type="text" class="form-control" value="{{ old('residence') }}" name="residence" placeholder="Enter Your Residence">
             </div>
 
             </div>
@@ -219,7 +232,7 @@
 
             <div class="col-md-6">
                 <label class="form-label" for="">Preffered Job</label>
-                <input type="text" class="form-control" name="preffered_job" placeholder="Enter Your Preffered Job">
+                <input type="text" class="form-control" value="{{ old('preffered_job') }}" name="preffered_job" placeholder="Enter Your Preffered Job">
               </div>
 
             </div>
@@ -234,12 +247,12 @@
 
                 <div class="col-md-6">
                   <label class="form-label" for="alternate_payment_person">Name of alternate payment person</label>
-                  <input type="text" class="form-control" name="alternate_payment_person" placeholder="Enter  Person's Id Serial No">
+                  <input type="text" class="form-control"  value="{{ old('alternate_payment_person') }}" name="alternate_payment_person" placeholder="Enter  Person's Id Serial No">
                 </div>
 
                 <div class="col-md-6">
                   <label class="form-label" for="">ID No</label>
-                  <input type="number" class="form-control" name="alternate_payment_person_id_no" placeholder="Enter  Person's Id No">
+                  <input type="number" class="form-control" value="{{ old('alternate_payment_person_id_no') }}" name="alternate_payment_person_id_no" placeholder="Enter  Person's Id No">
                 </div>
 
             </div>
@@ -248,7 +261,7 @@
 
             <div class="col-md-6">
               <label class="form-label" for="">Phone No</label>
-              <input type="number" class="form-control" name="alternate_payment_person_phone" placeholder="Enter Person's Phone">
+              <input type="number" class="form-control" value="{{ old('alternate_payment_person_phone') }}" name="alternate_payment_person_phone" placeholder="Enter Person's Phone">
             </div>
 
           </div>
