@@ -38,11 +38,12 @@
         <br/>
         <br/>
         <div class="table-responsive">
+          @if(count($registrations) > 0)
             <table class="table small tabled-stripped">
 
                 <thead class="thead-light">
                     <tr>
-                        <th>NAME</th>
+                        <th>NAME </th>
                         <th>DOB</th>
                         <th>Gender</th>
                         <th>DISABLED</th>
@@ -85,6 +86,9 @@
                 </tbody>
             </table>
             <div class="pagination"> {!! $registrations->appends(['search' => Request::get('search')])->render() !!} </div>
+            @else
+              <div class="col-12 alert alert-warning"> No records found </div>
+            @endif
         </div>
 
                 </div>

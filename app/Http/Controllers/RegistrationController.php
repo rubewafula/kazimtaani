@@ -1,9 +1,9 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Registration;
+use App\Models\UserCounty;
 use Illuminate\Support\Facades\DB;
 
 
@@ -30,6 +30,9 @@ class RegistrationController extends Controller
         $ward = $request->get('ward');
         $perPage = 50;
 
+        $user = auth()->user();
+        $allowed_counties = UserCounty::select(DB::raw('group_concat(county) as counties'))
+            ->where('user_id', $user->id)->groupBy('user_id')->first();
 
         if (!empty($keyword) || !empty($selected_county) ||!empty($sub_county)|| !empty($ward) ) {
             $registrations = Registration::select(
@@ -37,7 +40,9 @@ class RegistrationController extends Controller
                 'dob','gender', 'disabled', 'phone_number', 'national_id',
                 'id_serial_number', 'district_of_birth', 'county', 'sub_county', 
                 'ward', 'village', 'residence', 'education', 'skill_level', 'preferred_job'
-            );
+            )->when($allowed_counties, function($query) use($allowed_counties){
+                $query->whereIn('county', explode(',', $allowed_counties->counties));
+            });
 
             if ($keyword) {
                 $registrations->where(function($query) use($keyword) {
@@ -45,6 +50,7 @@ class RegistrationController extends Controller
                     ->orWhere('last_name', 'LIKE', "%$keyword%")
                     ->orWhere('village', 'LIKE', "%$keyword%");
                 });
+
             }
             if($selected_county){
                 $registrations->where('county', $selected_county);
@@ -65,10 +71,14 @@ class RegistrationController extends Controller
                 'dob','gender', 'disabled', 'phone_number', 'national_id',
                 'id_serial_number', 'district_of_birth', 'county', 'sub_county', 
                 'ward', 'village', 'residence', 'education', 'skill_level', 'preferred_job'
-            )->latest()->paginate($perPage);
+            )->when($allowed_counties, function($query) use($allowed_counties){
+                $query->whereIn('county', explode(',', $allowed_counties->counties));
+            })->latest()->paginate($perPage);
         }
-
-        $counties = DB::table('county') ->select(['county'])->get();
+        $counties = DB::table('county')->select(['county'])
+            ->when($allowed_counties, function($query)  use ($allowed_counties) {
+                $query->whereIn('county', explode(',', $allowed_counties->counties))->get();
+            })->get();
         return view(
             'admin.registration', 
             compact('registrations', 'counties', 'selected_county', 'sub_county', 'ward'));
