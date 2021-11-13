@@ -25,7 +25,7 @@ Route::prefix('registration')->group(function () {
 });
 
 
-Route::prefix('admin')->middleware(['auth'])->group(function () {
+Route::prefix('admin')->middleware(['auth','admin'])->group(function () {
 
     Route::get('/registrations','\App\Http\Controllers\RegistrationController@index');
     Route::post('/registration/sub-counties','\App\Http\Controllers\RegistrationController@subCounties');
